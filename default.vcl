@@ -105,7 +105,7 @@ sub vcl_recv {
     }
 
     # Removing cookies for static content so Varnish caches these files.
-    if (req.url ~ "(?i)\.(pdf|asc|dat|txt|doc|xls|ppt|tgz|csv|png|gif|jpeg|jpg|ico|swf|css|js)(\?.*)?$") {
+    if (req.url ~ "(?i)\.(pdf|asc|dat|txt|doc|xls|ppt|tgz|csv|png|gif|jpeg|jpg|svg|ico|swf|css|js)(\?.*)?$") {
         unset req.http.Cookie;
     }
 
@@ -124,7 +124,7 @@ sub vcl_recv {
         #    cookie string.
         set req.http.Cookie = ";" + req.http.Cookie;
         set req.http.Cookie = regsuball(req.http.Cookie, "; +", ";");
-        set req.http.Cookie = regsuball(req.http.Cookie, ";(SESS[a-z0-9]+|SSESS[a-z0-9]+|NO_CACHE)=", "; \1=");
+        set req.http.Cookie = regsuball(req.http.Cookie, ";(SESS[a-z0-9]+|SSESS[a-z0-9]+|NO_CACHE|audience_select_audience)=", "; \1=");
         set req.http.Cookie = regsuball(req.http.Cookie, ";[^ ][^;]*", "");
         set req.http.Cookie = regsuball(req.http.Cookie, "^[; ]+|[; ]+$", "");
 
@@ -181,7 +181,7 @@ sub vcl_backend_response {
     # (?i) denotes case insensitive in PCRE (perl compatible regular expressions).
     # This list of extensions appears twice, once here and again in vcl_recv so
     # make sure you edit both and keep them equal.
-    if (bereq.url ~ "(?i)\.(pdf|asc|dat|txt|doc|xls|ppt|tgz|csv|png|gif|jpeg|jpg|ico|swf|css|js)(\?.*)?$") {
+    if (bereq.url ~ "(?i)\.(pdf|asc|dat|txt|doc|xls|ppt|tgz|csv|png|gif|jpeg|jpg|svg|ico|swf|css|js)(\?.*)?$") {
         unset beresp.http.set-cookie;
     }
 
