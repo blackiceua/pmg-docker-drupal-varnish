@@ -12,7 +12,7 @@ VMOD - Varnish module collection by Varnish Software
 ----------------------------------------------------
 https://github.com/varnish/varnish-modules
 
-This is a collection of modules ("vmods") extending Varnish VCL used for
+This is docker image with a collection of modules ("vmods") extending Varnish VCL used for
 describing HTTP request/response policies with additional capabilities.
 
 Included:
