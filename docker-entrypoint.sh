@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -eo pipefail
-
 if [ -z "$VARNISH_BACKEND_HOST" ]; then
     VARNISH_BACKEND_HOST=nginx
 fi

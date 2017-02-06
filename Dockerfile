@@ -46,6 +46,8 @@ RUN \
   make && \
   make install
 
+RUN bash -c set -eo pipefail
+
 COPY default.vcl /etc/varnish/
 WORKDIR /etc/varnish
 
