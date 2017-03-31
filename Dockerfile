@@ -46,6 +46,10 @@ RUN \
   make && \
   make install
 
+RUN git clone http://git.gnu.org.ua/cgit/vmod-basicauth.git && cd vmod-basicauth \
+    && git clone http://git.gnu.org.ua/repo/acvmod.git && ./bootstrap \
+    && ./configure VARNISHSRC=/usr/local/src/varnish-$VARNISH_VERSION VMODDIR=/usr/lib/varnish/vmods/ && make && make install && make check
+
 RUN bash -c set -eo pipefail
 
 COPY default.vcl /etc/varnish/
